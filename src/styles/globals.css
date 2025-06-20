@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors - HSL for easy manipulation */
+    --giovanni-blue: 203, 64%, 30%;
+    --giovanni-blue-light: 203, 58%, 40%;
+    --giovanni-blue-dark: 203, 78%, 23%;
+    
+    --giovanni-terracotta: 14, 64%, 55%;
+    --giovanni-terracotta-light: 14, 64%, 65%;
+    --giovanni-terracotta-dark: 14, 64%, 45%;
+    
+    --giovanni-amber: 30, 84%, 66%;
+    --giovanni-amber-light: 30, 84%, 76%;
+    --giovanni-amber-dark: 30, 84%, 56%;
+    
+    --giovanni-cream: 42, 44%, 96%;
+    --giovanni-charcoal: 0, 0%, 16%;
+    
+    /* Spacing System (8px base) */
+    --space-unit: 0.5rem;
+    --space-xs: calc(var(--space-unit) * 1);   /* 8px */
+    --space-sm: calc(var(--space-unit) * 2);   /* 16px */
+    --space-md: calc(var(--space-unit) * 3);   /* 24px */
+    --space-lg: calc(var(--space-unit) * 4);   /* 32px */
+    --space-xl: calc(var(--space-unit) * 6);   /* 48px */
+    --space-2xl: calc(var(--space-unit) * 8);  /* 64px */
+    --space-3xl: calc(var(--space-unit) * 12); /* 96px */
+    
+    /* Typography Scale */
+    --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+    --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+    --text-3xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+    --text-4xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Animation */
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Touch targets */
+    --touch-target: 44px;
+  }
+  
+  /* Dark mode variables */
+  .dark {
+    --giovanni-cream: 0, 0%, 10%;
+    --giovanni-charcoal: 42, 44%, 96%;
+  }
+  
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: var(--font-body), sans-serif;
+    color: hsl(var(--giovanni-charcoal));
+    background-color: hsl(var(--giovanni-cream));
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  /* Button Base */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold rounded-lg transition-all duration-300;
+    min-height: var(--touch-target);
+    font-size: var(--text-base);
+  }
+  
+  .btn-primary {
+    @apply bg-giovanni-blue text-white hover:bg-giovanni-blue-dark;
+  }
+  
+  .btn-secondary {
+    @apply bg-giovanni-terracotta text-white hover:bg-giovanni-terracotta-dark;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-giovanni-blue text-giovanni-blue hover:bg-giovanni-blue hover:text-white;
+  }
+  
+  /* Container */
+  .container-custom {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
+  }
+  
+  /* Section spacing */
+  .section {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+  
+  /* Card */
+  .card {
+    @apply bg-white rounded-xl p-6 transition-all duration-300;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  
+  /* Glass effect */
+  .glass {
+    @apply backdrop-blur-md bg-white/80 dark:bg-gray-900/80;
+  }
+  
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-giovanni-blue to-giovanni-terracotta bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  /* Mobile-first responsive utilities */
+  .mobile-only {
+    @apply block md:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden md:block;
+  }
+  
+  /* Touch-friendly tap areas */
+  .touch-target {
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+  }
+  
+  /* Safe area padding for mobile devices */
+  .safe-padding-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Animation delays */
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
